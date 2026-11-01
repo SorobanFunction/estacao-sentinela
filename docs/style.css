@@ -1,0 +1,631 @@
+
+:root {
+    --background: #0b1220;
+    --surface: #111c2e;
+    --surface-light: #17263c;
+    --border: #26364d;
+    --text: #e5edf7;
+    --muted: #94a3b8;
+    --blue: #38bdf8;
+    --green: #34d399;
+    --yellow: #fbbf24;
+    --red: #f87171;
+}
+
+/* CONFIGURAÇÕES GERAIS */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: var(--background);
+    color: var(--text);
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: 1.6;
+    min-height: 100vh;
+}
+
+button,
+input {
+    font: inherit;
+}
+
+/* CABEÇALHO */
+
+.header {
+    background: #0f1a2b;
+    border-bottom: 1px solid var(--border);
+    padding: 22px 7%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.brand-icon {
+    width: 46px;
+    height: 46px;
+    display: grid;
+    place-items: center;
+    border-radius: 12px;
+    background: #17334b;
+    color: var(--blue);
+    font-size: 30px;
+}
+
+.header h1 {
+    font-size: 19px;
+    letter-spacing: 1.2px;
+}
+
+.header p {
+    color: var(--muted);
+    font-size: 13px;
+}
+
+.connection {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    color: var(--blue);
+    font-size: 13px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+
+.connection-dot,
+.status-dot,
+.legend-dot {
+    width: 9px;
+    height: 9px;
+    display: inline-block;
+    border-radius: 50%;
+    background: var(--blue);
+}
+
+/* ESTADO DA CONEXÃO MQTT */
+
+.connection-dot {
+    background: var(--yellow);
+    box-shadow: 0 0 10px rgba(251, 191, 36, 0.5);
+    transition: background 0.2s, box-shadow 0.2s;
+}
+
+.connection.online .connection-dot {
+    background: var(--green);
+    box-shadow: 0 0 10px rgba(52, 211, 153, 0.6);
+}
+
+.connection.offline .connection-dot {
+    background: var(--red);
+    box-shadow: 0 0 10px rgba(248, 113, 113, 0.5);
+}
+
+.connection.connecting .connection-dot {
+    background: var(--yellow);
+    box-shadow: 0 0 10px rgba(251, 191, 36, 0.5);
+}
+
+/* BOTÃO DE ALTERNÂNCIA DE MODO */
+
+#mode-label {
+    border: 1px solid var(--blue);
+    color: var(--blue);
+    background: rgba(56, 189, 248, 0.08);
+    padding: 4px 9px;
+    border-radius: 20px;
+    font-size: 9px;
+    font-family: inherit;
+    font-weight: bold;
+    letter-spacing: 0.7px;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+
+#mode-label:hover {
+    background: rgba(56, 189, 248, 0.16);
+}
+
+#mode-label:focus-visible {
+    outline: 2px solid var(--blue);
+    outline-offset: 3px;
+}
+
+#mode-label.demo {
+    border-color: var(--yellow);
+    color: var(--yellow);
+    background: rgba(251, 191, 36, 0.08);
+}
+
+/* PAINEL DE SIMULAÇÃO */
+
+.simulation-panel.hidden {
+    display: none;
+}
+
+/* CONTEÚDO */
+
+.container {
+    width: min(1100px, 90%);
+    margin: auto;
+    padding: 42px 0;
+}
+
+.welcome {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    gap: 20px;
+    margin-bottom: 28px;
+}
+
+.eyebrow {
+    color: var(--blue);
+    font-size: 10px;
+    font-weight: bold;
+    letter-spacing: 1.4px;
+}
+
+.welcome h2,
+.section-heading h2,
+.panel-heading h2 {
+    font-size: 23px;
+    margin-top: 5px;
+}
+
+.welcome p,
+.panel-heading p {
+    color: var(--muted);
+    font-size: 13px;
+}
+
+.last-update {
+    display: flex;
+    flex-direction: column;
+    text-align: right;
+}
+
+.last-update span {
+    color: var(--muted);
+    font-size: 9px;
+    letter-spacing: 1px;
+}
+
+.last-update strong {
+    font-size: 14px;
+    font-variant-numeric: tabular-nums;
+}
+
+/* INDICADOR DE RISCO */
+
+.risk-card {
+    background: var(--surface-light);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--green);
+    border-radius: 15px;
+    padding: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 35px;
+    transition: border-color 0.2s;
+}
+
+.risk-card.status-warning {
+    border-left-color: var(--yellow);
+}
+
+.risk-card.status-danger {
+    border-left-color: var(--red);
+}
+
+.risk-number {
+    display: flex;
+    align-items: baseline;
+    gap: 5px;
+    margin: 8px 0;
+}
+
+.risk-number strong {
+    font-size: 62px;
+    line-height: 1.2;
+}
+
+.risk-number span {
+    color: var(--muted);
+    font-size: 20px;
+}
+
+.risk-status {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    font-size: 14px;
+}
+
+.status-normal .status-dot {
+    background: var(--green);
+}
+
+.status-warning .status-dot {
+    background: var(--yellow);
+}
+
+.status-danger .status-dot {
+    background: var(--red);
+}
+
+.risk-card p {
+    color: var(--muted);
+    font-size: 12px;
+    margin-top: 8px;
+}
+
+.risk-symbol {
+    font-size: 75px;
+    color: var(--blue);
+}
+
+/* SENSORES */
+
+.section-heading {
+    margin-bottom: 15px;
+}
+
+.sensor-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-bottom: 28px;
+}
+
+.sensor-card,
+.panel {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 24px;
+}
+
+.card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.sensor-icon {
+    color: var(--blue);
+    font-size: 27px;
+}
+
+.sensor-label {
+    color: var(--muted);
+    font-size: 10px;
+    letter-spacing: 1px;
+}
+
+.sensor-card h3 {
+    font-size: 15px;
+    font-weight: normal;
+    color: var(--muted);
+}
+
+.sensor-reading {
+    display: flex;
+    align-items: baseline;
+    gap: 7px;
+    margin: 10px 0 5px;
+}
+
+.sensor-reading strong {
+    font-size: 27px;
+}
+
+.sensor-reading span {
+    color: var(--muted);
+    font-size: 11px;
+}
+
+.sensor-status {
+    color: var(--green);
+    font-size: 12px;
+}
+
+/* PAINÉIS */
+
+.panel {
+    margin-bottom: 24px;
+}
+
+.panel-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 22px;
+}
+
+.demo-tag {
+    color: var(--yellow);
+    border: 1px solid #755a22;
+    background: #302719;
+    border-radius: 20px;
+    padding: 5px 11px;
+    font-size: 10px;
+    font-weight: bold;
+}
+
+/* CONTROLES */
+
+.control-group {
+    margin-bottom: 27px;
+}
+
+.control-label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.control-label label,
+.movement-control label {
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.control-label strong {
+    color: var(--blue);
+    font-size: 17px;
+}
+
+input[type="range"] {
+    width: 100%;
+    accent-color: var(--blue);
+    cursor: pointer;
+}
+
+.range-labels {
+    display: flex;
+    justify-content: space-between;
+    color: var(--muted);
+    font-size: 10px;
+}
+
+.movement-control {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 17px 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+}
+
+.movement-control p {
+    color: var(--muted);
+    font-size: 11px;
+    margin-top: 3px;
+}
+
+/* INTERRUPTOR */
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 48px;
+    height: 26px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.switch-slider {
+    position: absolute;
+    inset: 0;
+    background: #334155;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.switch-slider::before {
+    content: "";
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    left: 4px;
+    top: 4px;
+    background: white;
+    border-radius: 50%;
+    transition: 0.2s;
+}
+
+.switch input:checked + .switch-slider {
+    background: var(--blue);
+}
+
+.switch input:checked + .switch-slider::before {
+    transform: translateX(22px);
+}
+
+/* CENÁRIOS */
+
+.preset-controls {
+    margin-top: 24px;
+}
+
+.preset-controls > p {
+    color: var(--muted);
+    font-size: 10px;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+}
+
+.preset-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.preset-button {
+    background: #1b2b41;
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 17px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.preset-button:hover {
+    border-color: var(--blue);
+    color: var(--blue);
+}
+
+.preset-button:focus-visible {
+    outline: 2px solid var(--blue);
+    outline-offset: 3px;
+}
+
+/* GRÁFICO */
+
+.chart-container {
+    width: 100%;
+    height: 210px;
+}
+
+#risk-chart {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.chart-legend {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--muted);
+    font-size: 11px;
+    margin-top: 12px;
+}
+
+.legend-dot {
+    background: var(--blue);
+}
+
+/* EVENTOS */
+
+.event {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    padding: 13px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 12px;
+}
+
+.event:last-child {
+    border-bottom: none;
+}
+
+.event-time {
+    color: var(--muted);
+    white-space: nowrap;
+}
+
+.empty {
+    color: var(--muted);
+    font-size: 13px;
+    padding: 10px 0;
+}
+
+/* RODAPÉ */
+
+footer {
+    text-align: center;
+    padding: 35px 0 10px;
+    color: var(--muted);
+}
+
+footer strong {
+    color: var(--text);
+    font-size: 12px;
+    letter-spacing: 1px;
+}
+
+footer p {
+    font-size: 12px;
+    margin: 5px 0;
+}
+
+footer small {
+    font-size: 10px;
+}
+
+/* RESPONSIVIDADE */
+
+@media (max-width: 650px) {
+
+    .header {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 20px 5%;
+    }
+
+    .container {
+        width: 92%;
+        padding-top: 28px;
+    }
+
+    .welcome {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .last-update {
+        text-align: left;
+    }
+
+    .sensor-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .risk-card {
+        padding: 23px;
+    }
+
+    .risk-number strong {
+        font-size: 49px;
+    }
+
+    .risk-symbol {
+        font-size: 50px;
+    }
+
+    .panel {
+        padding: 19px;
+    }
+
+    .preset-button {
+        flex: 1 1 40%;
+    }
+
+    .event {
+        flex-direction: column;
+        gap: 3px;
+    }
+}
