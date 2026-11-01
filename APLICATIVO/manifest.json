@@ -1,0 +1,11 @@
+
+{
+    "name": "Estação Sentinela",
+    "short_name": "Sentinela",
+    "description": "Sistema experimental de monitoramento ambiental e biossegurança alimentar.",
+    "start_url": "./index.html",
+    "display": "standalone",
+    "background_color": "#0b1220",
+    "theme_color": "#0b1220",
+    "orientation": "portrait"
+}

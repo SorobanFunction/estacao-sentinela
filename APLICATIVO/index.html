@@ -1,0 +1,308 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0b1220">
+
+    <meta
+        name="description"
+        content="Sistema experimental de monitoramento ambiental e biossegurança alimentar."
+    >
+
+    <title>Estação Sentinela</title>
+
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header class="header">
+        <div class="brand">
+            <div class="brand-icon">◎</div>
+
+            <div>
+                <h1>ESTAÇÃO SENTINELA</h1>
+                <p>Monitoramento e biossegurança alimentar</p>
+            </div>
+        </div>
+
+        <div class="connection" id="connection-indicator">
+            <span
+                class="connection-dot"
+                id="connection-dot"
+            ></span>
+
+            <span id="connection-status">
+                Conectando...
+            </span>
+
+            <button
+                type="button"
+                id="mode-label"
+                aria-label="Alternar modo de operação"
+                aria-pressed="false"
+            >
+                MODO REAL
+            </button>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <section class="welcome">
+            <div>
+                <span class="eyebrow">PAINEL PRINCIPAL</span>
+                <h2>Monitoramento ambiental</h2>
+                <p>Acompanhe os indicadores e o estado da estação.</p>
+            </div>
+
+            <div class="last-update">
+                <span>ÚLTIMA COMUNICAÇÃO</span>
+                <strong id="last-update">--:--:--</strong>
+            </div>
+        </section>
+
+        <section class="risk-card status-normal" id="risk-card">
+
+            <div class="risk-information">
+                <span class="eyebrow">ÍNDICE EXPERIMENTAL DE RISCO</span>
+
+                <div class="risk-number">
+                    <strong id="risk">0</strong>
+                    <span>/100</span>
+                </div>
+
+                <div class="risk-status">
+                    <span class="status-dot"></span>
+                    <strong id="risk-status">Condições normais</strong>
+                </div>
+
+                <p id="risk-description">
+                    Nenhuma alteração relevante detectada.
+                </p>
+            </div>
+
+            <div class="risk-symbol" id="risk-symbol">◎</div>
+
+        </section>
+
+        <section class="section-heading">
+            <div>
+                <span class="eyebrow">SENSORES</span>
+                <h2>Leituras atuais</h2>
+            </div>
+        </section>
+
+        <section class="sensor-grid">
+
+            <article class="sensor-card">
+                <div class="card-top">
+                    <span class="sensor-icon">◉</span>
+                    <span class="sensor-label">MQ-135</span>
+                </div>
+
+                <h3>Sensor de gás</h3>
+
+                <div class="sensor-reading">
+                    <strong id="gas-value">0</strong>
+                    <span>ADC</span>
+                </div>
+
+                <p id="gas-status" class="sensor-status">Normal</p>
+            </article>
+
+            <article class="sensor-card">
+                <div class="card-top">
+                    <span class="sensor-icon">⌁</span>
+                    <span class="sensor-label">HC-SR501</span>
+                </div>
+
+                <h3>Detecção de movimento</h3>
+
+                <div class="sensor-reading">
+                    <strong id="pir-value">Não detectado</strong>
+                </div>
+
+                <p id="pir-status" class="sensor-status">Sem movimento</p>
+            </article>
+
+        </section>
+
+        <section
+            class="panel simulation-panel"
+            id="simulation-panel"
+        >
+
+            <div class="panel-heading">
+                <div>
+                    <span class="eyebrow">AMBIENTE DE TESTES</span>
+                    <h2>Simulação dos sensores</h2>
+                    <p>Controle manualmente os valores demonstrativos.</p>
+                </div>
+
+                <span class="demo-tag">SIMULAÇÃO</span>
+            </div>
+
+            <div class="control-group">
+                <div class="control-label">
+                    <label for="gas-control">
+                        Leitura do sensor de gás
+                    </label>
+
+                    <strong id="gas-control-value">0</strong>
+                </div>
+
+                <input
+                    type="range"
+                    id="gas-control"
+                    min="0"
+                    max="4095"
+                    value="0"
+                    step="1"
+                >
+
+                <div class="range-labels">
+                    <span>0</span>
+                    <span>4095</span>
+                </div>
+            </div>
+
+            <div class="control-group movement-control">
+                <div>
+                    <label for="pir-control">
+                        Simular movimento
+                    </label>
+
+                    <p>Ative para representar uma detecção do PIR.</p>
+                </div>
+
+                <label class="switch">
+                    <input
+                        type="checkbox"
+                        id="pir-control"
+                    >
+
+                    <span class="switch-slider"></span>
+                </label>
+            </div>
+
+            <div class="preset-controls">
+                <p>CENÁRIOS DE TESTE</p>
+
+                <div class="preset-buttons">
+
+                    <button
+                        class="preset-button"
+                        data-preset="normal"
+                        type="button"
+                    >
+                        Normal
+                    </button>
+
+                    <button
+                        class="preset-button"
+                        data-preset="gas"
+                        type="button"
+                    >
+                        Gás
+                    </button>
+
+                    <button
+                        class="preset-button"
+                        data-preset="motion"
+                        type="button"
+                    >
+                        Movimento
+                    </button>
+
+                    <button
+                        class="preset-button"
+                        data-preset="combined"
+                        type="button"
+                    >
+                        Ambos
+                    </button>
+
+                </div>
+            </div>
+
+        </section>
+
+        <section class="panel">
+
+            <div class="panel-heading">
+                <div>
+                    <span class="eyebrow">DADOS HISTÓRICOS</span>
+                    <h2>Histórico de leituras</h2>
+                    <p>Evolução do índice experimental de risco.</p>
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <canvas id="risk-chart"></canvas>
+            </div>
+
+            <div class="chart-legend">
+                <span class="legend-dot"></span>
+                Índice de risco
+            </div>
+
+        </section>
+
+        <section class="panel">
+
+            <div class="panel-heading">
+                <div>
+                    <span class="eyebrow">MONITORAMENTO</span>
+                    <h2>Registro de eventos</h2>
+                    <p>Histórico das alterações detectadas.</p>
+                </div>
+            </div>
+
+            <div id="event-list">
+                <p class="empty">Nenhum evento registrado.</p>
+            </div>
+
+        </section>
+
+        <footer>
+            <strong>ESTAÇÃO SENTINELA</strong>
+
+            <p>
+                Projeto de monitoramento ambiental e biossegurança alimentar.
+            </p>
+
+            <small id="footer-mode">
+                Protótipo experimental — modo real via Wokwi.
+            </small>
+        </footer>
+
+    </main>
+
+    <!-- Biblioteca MQTT -->
+    <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
+
+    <!-- Código principal da aplicação -->
+    <script src="script.js"></script>
+
+    <!-- Registro do Service Worker -->
+    <script>
+        if ("serviceWorker" in navigator) {
+            window.addEventListener("load", () => {
+                navigator.serviceWorker.register("./service-worker.js")
+                    .then(() => {
+                        console.log("Service Worker registrado!");
+                    })
+                    .catch(error => {
+                        console.error("Erro ao registrar Service Worker:", error);
+                    });
+            });
+        }
+    </script>
+
+</body>
+</html>
