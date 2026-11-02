@@ -1076,3 +1076,19 @@ setInterval(() => {
 // Atualiza o gráfico ao redimensionar a janela.
 
 window.addEventListener("resize", drawChart);
+
+// ==========================================
+// REGISTRO DO SERVICE WORKER — PWA
+// ==========================================
+
+if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => {
+        navigator.serviceWorker.register("./service-worker.js")
+            .then(registration => {
+                console.log("Service Worker registrado:", registration.scope);
+            })
+            .catch(error => {
+                console.error("Erro ao registrar Service Worker:", error);
+            });
+    });
+}
